@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designerythm - Digital Agency</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="particles"></div>
+
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">
+                <a href="#home">
+                    <img src="images/logo.png" alt="Designerythm Logo" class="logo-image">
+                </a>
+            </div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#work">Work</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="cta-button" id="getInTouchBtn">Get in Touch</button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        
+        <img src="images/brand.png" alt="Designerythm Brand Logo" class="hero-brand-image">
+        
+        <div class="hero-content">
+            <h1 class="hero-title">CRAFTING DIGITAL</h1>
+            <h2 class="hero-subtitle">EXPERIENCES THAT RESONATE</h2>
+            <p class="hero-description">We are the rhythm of digital innovation, creating immersive experiences that connect brands with their audiences through cutting-edge design and technology.</p>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <h2 class="section-title">What We Build</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 20h40v40H20z" stroke="#E6007A" stroke-width="2" fill="none"/>
+                        <path d="M30 30h20v20H30z" stroke="#ffffff" stroke-width="2" fill="none"/>
+                        <circle cx="40" cy="40" r="5" fill="#E6007A"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Web Development</h3>
+                <p class="service-description">Cutting-edge websites and applications built with the latest technologies, optimized for performance and user experience.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 25h50v30H15z" stroke="#E6007A" stroke-width="2" fill="none"/>
+                        <path d="M25 35h30" stroke="#ffffff" stroke-width="2"/>
+                        <path d="M25 45h20" stroke="#ffffff" stroke-width="2"/>
+                        <circle cx="55" cy="40" r="3" fill="#E6007A"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Brand Identity</h3>
+                <p class="service-description">Comprehensive brand strategies and visual identities that capture the essence of your business and resonate with your audience.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="20" width="40" height="40" stroke="#E6007A" stroke-width="2" fill="none"/>
+                        <path d="M30 30l20 20M50 30L30 50" stroke="#ffffff" stroke-width="2"/>
+                        <circle cx="40" cy="40" r="8" stroke="#E6007A" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Digital Strategy</h3>
+                <p class="service-description">Data-driven digital strategies that align with your business goals and drive measurable results across all channels.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="process">
+        <h2 class="section-title">Our Process</h2>
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <h3 class="step-title">Discovery & Strategy</h3>
+                <p class="step-description">We start by deeply understanding your vision, goals, and audience to create a tailored strategy for success.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <h3 class="step-title">Design & UX</h3>
+                <p class="step-description">We craft stunning, user-centric designs and intuitive interfaces that captivate your audience and enhance usability.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <h3 class="step-title">Development & Launch</h3>
+                <p class="step-description">Our expert developers bring the designs to life with clean, efficient code and ensure a seamless launch.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <h3 class="step-title">Support & Growth</h3>
+                <p class="step-description">We provide ongoing support and data-driven insights to help your digital presence evolve and grow.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="portfolio">
+        <h2 class="section-title">Our Creations</h2>
+
+        <div class="sticky-scroll-container">
+            
+            <div class="sticky-frame">
+                
+                <div class="portfolio-slide" data-slide-for="project1">
+                    <div class="slide-text">
+                        <h3 class="portfolio-title">NOVA LEARNING PLATFORM</h3>
+                        <p class="portfolio-category">EDTECH UI/UX & BRAND IDENTITY</p>
+                        <p class="portfolio-description">We designed an intuitive user interface and cohesive brand identity for this global EdTech platform, focusing on enhancing user engagement and simplifying complex learning pathways through seamless navigation and interactive elements.</p>
+                    </div>
+                    <div class="slide-image-wrapper">
+                        <video src="video/nova.mp4" alt="Digital Project One" class="portfolio-image-scaled" autoplay loop muted playsinline></video>
+                    </div>
+                </div>
+                
+                <div class="portfolio-slide" data-slide-for="project2">
+                    <div class="slide-text">
+                        <h3 class="portfolio-title">ZENITH SMART HOME</h3>
+                        <p class="portfolio-category">IOT APP INTERFACE & MARKETING CREATIVE</p>
+                        <p class="portfolio-description">Crafted a sleek mobile app interface for Zenith's smart home ecosystem, complemented by compelling video ads and social media content to drive international product adoption and highlight user benefits.</p>
+                    </div>
+                    <div class="slide-image-wrapper">
+                        <video src="video/zenith.mp4" alt="Digital Project Two" class="portfolio-image-scaled" autoplay loop muted playsinline></video>
+                    </div>
+                </div>
+                
+                <div class="portfolio-slide" data-slide-for="project3">
+                    <div class="slide-text">
+                        <h3 class="portfolio-title">"ORIGINS" COFFEE ROASTERS</h3>
+                        <p class="portfolio-category">GLOBAL E-COMMERCE BRANDING & WEB DEVELOPMENT</p>
+                        <p class="portfolio-description">Developed a premium brand identity and built a scalable e-commerce website for this artisanal coffee brand, emphasizing ethical sourcing and targeting discerning international consumers through visual storytelling.</p>
+                    </div>
+                    <div class="slide-image-wrapper">
+                        <video src="video/coffee.mp4" alt="Digital Project Three" class="portfolio-image-scaled" autoplay loop muted playsinline></video>
+                    </div>
+                </div>
+                
+                <div class="portfolio-slide" data-slide-for="project4">
+                    <div class="slide-text">
+                        <h3 class="portfolio-title">PROJECT AMPLIFY (GLOBAL INITIATIVE)</h3>
+                        <p class="portfolio-category">NON-PROFIT DIGITAL CAMPAIGN & STORYTELLING</p>
+                        <p class="portfolio-description">Orchestrated a multi-channel digital campaign for this international non-profit, using impactful video narratives and social media content to raise awareness and drive global engagement for their cause.</p>
+                    </div>
+                    <div class="slide-image-wrapper">
+                        <video src="video/amplify.mp4" alt="Digital Project Four" class="portfolio-image-scaled" autoplay loop muted playsinline></video>
+                    </div>
+                </div>
+        
+            </div>
+
+            <div class="scroll-triggers">
+                <div class="scroll-trigger" data-trigger-for="project1"></div>
+                <div class="scroll-trigger" data-trigger-for="project2"></div>
+                <div class="scroll-trigger" data-trigger-for="project3"></div>
+                <div class="scroll-trigger" data-trigger-for="project4"></div>
+            </div>
+
+        </div>
+    </section>
+    <section id="about" class="about">
+        <h2 class="section-title">Driven by Design</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h2>DESIGN IS OUR LANGUAGE.</h2>
+                <p>We believe that great design is more than aesthetics—it's about creating meaningful connections between brands and people. Our team of visionaries, strategists, and technologists work together to craft experiences that not only look stunning but drive real business results.</p>
+                <p>From concept to execution, we push the boundaries of what's possible in digital design, always staying ahead of the curve and setting new standards for excellence in our industry.</p>
+            </div>
+            <div class="about-divider"></div>
+            <div class="about-image">
+                <!-- <img src="images/place.png" alt="Our Company Location"> -->
+                  <video src="video/work.mp4" alt="Digital Project Four"  autoplay loop muted playsinline></video>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-content">
+            <h2>HAVE A PROJECT IN MIND?</h2>
+            <p class="contact-subtitle">Let's create something extraordinary.</p>
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Project Type" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-input" rows="5" placeholder="Tell us about your project" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">SEND MESSAGE</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="interactive-particles-container">
+        <div class="interactive-box">
+            <img src="images/logo.png" alt="Designerythm Logo" class="interactive-box-image">
+        </div>
+        <canvas id="interactiveCanvas"></canvas>
+    </section>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="#" class="social-link">𝕏</a>
+            <a href="#" class="social-link">Be</a>
+            <a href="#" class="social-link">in</a>
+        </div>
+        <p class="footer-text">© 2025 Designerythm Digital Agency. All rights reserved.</p>
+    </footer>
+
+    <div class="modal-overlay" id="scheduleModal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeModalBtn">&times;</span>
+            <h2>Book a Consultation</h2>
+            <form class="contact-form" onsubmit="handleModalSubmit(event)">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-input" rows="4" placeholder="Briefly describe your project" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">SCHEDULE NOW</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="script.js" defer></script>
+</body>
+</html>

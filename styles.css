@@ -1,0 +1,889 @@
+:root {
+    --brand-primary: #F26522;    /* Orange from pencil */
+    --brand-secondary: #0B99D6; /* Mid Blue from note */
+    --brand-highlight: #FDB913; /* Yellow from pencil tip */
+    --brand-deep: #00508C;      /* Dark Blue from note */
+    --brand-accent: #7C3E8B;     /* Purple from ring */
+
+    /* --- RGBA Versions for opacity --- */
+    --brand-primary-rgb: 242, 101, 34;
+    --brand-secondary-rgb: 11, 153, 214;
+    --brand-deep-rgb: 0, 80, 140;
+    --brand-highlight-rgb: 253, 185, 19;
+}
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+    scroll-behavior: smooth; /* This ensures smooth scrolling */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Navigation */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 20px 40px;
+    transition: all 0.3s ease;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 30px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(var(--brand-secondary-rgb), 0.3); /* --- CHANGED --- */
+    box-shadow: 0 8px 32px 0 rgba(var(--brand-deep-rgb), 0.1); /* --- CHANGED --- */
+    transition: all 0.3s ease;
+}
+
+/* === UPDATED LOGO STYLES === */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    max-height: 40px; /* Adjust height as needed */
+    width: auto;
+    transition: transform 0.3s ease;
+    transform-origin: 10% 46%;      /* change origin if needed */
+    transform: scale(8);        /* visually scale up 1.6x */
+}
+
+/* .logo-image:hover {
+    transform: scale(1.05);
+} */
+/* === END UPDATED LOGO STYLES === */
+
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.nav-links a:hover {
+    color: var(--brand-primary); /* --- CHANGED --- */
+    background: rgba(var(--brand-primary-rgb), 0.1); /* --- CHANGED --- */
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand-primary), var(--brand-highlight)); /* --- CHANGED --- */
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 70%;
+}
+
+.cta-button {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-highlight)); /* --- CHANGED --- */
+    color: #ffffff;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(var(--brand-primary-rgb), 0.3); /* --- CHANGED --- */
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--brand-primary-rgb), 0.5); /* --- CHANGED --- */
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.6s ease;
+}
+
+.cta-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: radial-gradient(ellipse at center, rgba(var(--brand-deep-rgb), 0.15) 0%, #000000 70%); /* --- CHANGED --- */
+    overflow: hidden;
+    padding-top: 200px; 
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+/* === NEW: Styles for your brand image === */
+.hero-brand-image {
+    position: absolute;
+    top: 25%; /* Positioned from the top */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; /* Keep this above particles */
+    width: 400px; /* Matched old canvas size */
+    height: 400px; /* Matched old canvas size */
+    object-fit: contain;
+    animation: subtle-float 6s ease-in-out infinite; /* New floating animation */
+    filter: drop-shadow(0 10px 30px rgba(var(--brand-primary-rgb), 0.3)); /* Added a soft glow */
+}
+
+/* === NEW: Keyframes for the float animation === */
+@keyframes subtle-float {
+    0%, 100% {
+        transform: translate(-50%, -50%) translateY(0px);
+    }
+    50% {
+        transform: translate(-50%, -50%) translateY(-20px);
+    }
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1; /* Particles are z-index 1 */
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--brand-secondary); /* --- CHANGED --- */
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--brand-secondary), 0 0 12px var(--brand-secondary); /* --- CHANGED --- */
+    animation: float 6s infinite linear;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) translateX(0px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100px) translateX(100px); opacity: 0; }
+}
+
+.hero-content {
+    position: relative;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 20px;
+    margin-top: 200px; /* === ADJUSTED from 150px to make space for the logo === */
+    z-index: 3; /* Keep this above particles */
+}
+
+.hero-title {
+    font-size: clamp(48px, 8vw, 120px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 0 0 20px 0;
+    line-height: 0.9;
+    color: #ffffff;
+    animation: fadeInUp 1s ease-out 0.5s;
+    animation-fill-mode: backwards;
+}
+
+.hero-subtitle {
+    font-size: clamp(24px, 4vw, 60px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-highlight)); /* --- CHANGED --- */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 30px 0;
+    text-shadow: 0 0 30px rgba(var(--brand-primary-rgb), 0.5); /* --- CHANGED --- */
+    animation: fadeInUp 1s ease-out 0.8s;
+    animation-fill-mode: backwards;
+}
+
+.hero-description {
+    font-size: 18px;
+    color: #cccccc;
+    line-height: 1.6;
+    margin: 0 0 40px 0;
+    animation: fadeInUp 1s ease-out 1.1s;
+    animation-fill-mode: backwards;
+}
+
+/* Services Section */
+.services {
+    padding: 120px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5; /* --- ADDED THIS LINE --- */
+}
+
+.section-title {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    margin: 0 0 80px 0;
+    background: linear-gradient(135deg, #ffffff, var(--brand-primary)); /* --- CHANGED --- */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--brand-primary); /* --- CHANGED --- */
+    transform: translateX(-101%);
+}
+
+.section-title.revealed::after {
+    animation: reveal 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.service-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(var(--brand-secondary-rgb), 0.3); /* --- CHANGED --- */
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(var(--brand-primary-rgb), 0.1), transparent); /* --- CHANGED --- */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-card:hover::before { opacity: 1; }
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--brand-primary); /* --- CHANGED --- */
+    box-shadow: 0 20px 40px rgba(var(--brand-primary-rgb), 0.2); /* --- CHANGED --- */
+}
+.service-icon {
+    width: 80px; height: 80px;
+    margin: 0 auto 30px;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- NEW: Override inline SVG colors --- */
+.service-icon svg [stroke="#E6007A"] {
+    stroke: var(--brand-secondary);
+}
+.service-icon svg [fill="#E6007A"] {
+    fill: var(--brand-primary);
+}
+/* --- End new rules --- */
+
+
+.service-card:hover .service-icon {
+    filter: drop-shadow(0 0 20px var(--brand-primary)); /* --- CHANGED --- */
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.service-title {
+    font-size: 24px; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 2px; margin: 0 0 20px 0; position: relative; z-index: 2;
+}
+.service-description {
+    color: #cccccc; line-height: 1.6; position: relative; z-index: 2;
+}
+
+/* PROCESS SECTION */
+.process {
+    padding: 120px 40px;
+    background: transparent; 
+    position: relative;
+    z-index: 5; /* --- ADDED THIS LINE --- */
+}
+
+.process-timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 60px;
+}
+
+.process-timeline::before {
+    content: '';
+    position: absolute;
+    top: 50px;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: rgba(var(--brand-secondary-rgb), 0.3); /* --- CHANGED --- */
+    z-index: 1;
+}
+
+.process-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    padding: 0 20px;
+    position: relative;
+}
+
+.step-number {
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--brand-primary); /* --- CHANGED --- */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--brand-primary); /* --- CHANGED --- */
+    background: #000;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.step-title {
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 30px 0 15px 0;
+    color: #ffffff;
+}
+
+.step-description {
+    color: #cccccc;
+    line-height: 1.6;
+    max-width: 250px;
+}
+
+.process-step:hover .step-number {
+    background: var(--brand-primary); /* --- CHANGED --- */
+    color: #ffffff;
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(var(--brand-primary-rgb), 0.5); /* --- CHANGED --- */
+}
+
+/* === REPLACED PORTFOLIO SECTION START (JS Version) === */
+.portfolio {
+    padding: 120px 0;
+    background: transparent; 
+    position: relative;
+    z-index: 5; /* --- ADDED THIS LINE --- */
+}
+
+/* 1. Main container: Defines the total scroll height */
+.sticky-scroll-container {
+    position: relative;
+    height: 400vh; /* 100vh per project slide */
+}
+
+/* 2. The "Frame": This sticks to the top and holds the content */
+.sticky-frame {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden; /* Clips the content */
+    
+    /* Center the content inside */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 3. Each Project Slide */
+.portfolio-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    
+    /* === MODIFIED LAYOUT === */
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr; /* Give text a bit more space */
+    align-items: center;
+    gap: 60px; /* Increase gap */
+    padding: 120px 60px; /* Adjust padding to align */
+    cursor: pointer;
+
+    /* --- ANIMATION --- */
+    opacity: 0;
+    transform: scale(1.3);
+    transition: opacity 0.5s ease-out, transform 0.8s ease-out; /* Smooth transition */
+}
+
+/* 4. The Active Slide */
+.portfolio-slide.is-active {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 10; /* This z-index is local to the sticky-frame, it's fine */
+}
+
+/* 5. Image & Text styling */
+.slide-image-wrapper {
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.portfolio-image-scaled {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-text {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease-out 0.3s, transform 0.5s ease-out 0.3s; /* Smooth transition */
+}
+
+.portfolio-slide.is-active .slide-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* === MODIFIED TITLE === */
+.portfolio-title {
+     font-size: clamp(60px, 5vw, 80px); /* Much larger font size */
+     font-weight: 100; 
+     text-transform: uppercase;
+     letter-spacing: 2px; 
+     margin: 0 0 20px 0;
+     line-height: 1.1;
+}
+.portfolio-category {
+    color: var(--brand-highlight);
+    font-weight: 800; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    font-size: 30px;
+}
+
+/* === NEW DESCRIPTION STYLE === */
+.portfolio-description {
+    font-size: 30px;
+    color: #cccccc;
+    line-height: 1.6;
+    margin-top: 35px; /* Space from category */
+    max-width: 600px; /* Keeps text readable */
+}
+
+
+/* 6. This is the new, invisible trigger styling */
+.scroll-triggers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Spans the full 400vh */
+    display: grid;
+    grid-template-rows: repeat(4, 1fr); /* 4 equal rows */
+}
+.scroll-trigger {
+    height: 100vh; /* Each trigger is 1 screen high */
+}
+
+
+/* 7. Hide old/fallback styles */
+.portfolio-grid,
+.portfolio-item {
+    display: none;
+}
+
+/* 8. Responsive */
+@media (max-width: 992px) {
+    /* Stack text/image on mobile for portfolio */
+    .portfolio-slide {
+        grid-template-columns: 1fr;
+        padding: 80px 40px;
+        text-align: center;
+    }
+    .slide-image-wrapper {
+        height: 50vh;
+        grid-row: 1; /* Put image on top */
+    }
+    /* Center description on mobile */
+    .portfolio-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+/* === REPLACED PORTFOLIO SECTION END (JS Version) === */
+
+
+/* About Section */
+.about {
+    padding: 120px 40px; max-width: 1400px; margin: 0 auto;
+    position: relative;
+    z-index: 5; /* --- ADDED THIS LINE --- */
+}
+.about-content {
+    display: grid; grid-template-columns: 1fr 2px 1fr;
+    gap: 60px; align-items: center;
+}
+.about-divider {
+    width: 2px; height: 300px;
+    background: linear-gradient(180deg, transparent, var(--brand-secondary), transparent); /* --- CHANGED --- */
+    justify-self: center;
+}
+.about-text h2 {
+    font-size: clamp(50px, 5vw, 65px); font-weight: 900; text-transform: uppercase;
+    letter-spacing: 2px; margin: 0 0 30px 0; line-height: 1.2;
+}
+.about-text p {
+    color: #cccccc; line-height: 1.8; margin: 0 0 20px 0; font-size: 16px;
+}
+.about-image {
+    width: 100%; aspect-ratio: 1;
+    background: linear-gradient(135deg, #1a1a1a, #333333);
+    border-radius: 20px; display: flex; justify-content: center; align-items: center;
+    font-size: 64px; color: var(--brand-primary); /* --- CHANGED --- */
+    position: relative; overflow: hidden;
+}
+.about-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
+    padding: 20px;
+}
+.about-image::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at center, rgba(var(--brand-secondary-rgb), 0.2) 0%, transparent 70%); /* --- CHANGED --- */
+}
+
+/* Contact Section */
+.contact {
+    padding: 120px 40px;
+    background: radial-gradient(ellipse at center, rgba(var(--brand-primary-rgb), 0.1) 0%, #000000 70%); /* --- CHANGED --- */
+    text-align: center;
+    position: relative;
+    z-index: 5; /* --- ADDED THIS LINE --- */
+}
+.contact-content { max-width: 600px; margin: 0 auto; }
+.contact h2 {
+    font-size: clamp(36px, 6vw, 64px); font-weight: 900; text-transform: uppercase;
+    letter-spacing: 3px; margin: 0 0 20px 0;
+}
+.contact-subtitle {
+    font-size: 24px;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-highlight)); /* --- CHANGED --- */
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin: 0 0 60px 0;
+}
+.contact-form { display: flex; flex-direction: column; gap: 20px; }
+.form-group { position: relative; }
+.form-input {
+    width: 100%; padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px; color: #ffffff; font-size: 16px;
+    backdrop-filter: blur(10px); transition: all 0.3s ease;
+}
+.form-input:focus {
+    outline: none; border-color: var(--brand-primary); /* --- CHANGED --- */
+    box-shadow: 0 0 20px rgba(var(--brand-primary-rgb), 0.3); /* --- CHANGED --- */
+}
+.form-input::placeholder { color: #888888; }
+.submit-button {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-highlight)); /* --- CHANGED --- */
+    color: #ffffff; padding: 20px 40px; border: none;
+    border-radius: 15px; font-size: 18px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 2px;
+    cursor: pointer; transition: all 0.3s ease; margin-top: 20px;
+}
+.submit-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(var(--brand-primary-rgb), 0.4); /* --- CHANGED --- */
+}
+
+/* Footer */
+.footer {
+    padding: 60px 40px 40px; background: #000000; text-align: center;
+    border-top: 1px solid rgba(var(--brand-secondary-rgb), 0.2); /* --- CHANGED --- */
+    position: relative;
+    z-index: 5; /* --- ADDED THIS LINE --- */
+}
+.social-links {
+    display: flex; justify-content: center;
+    gap: 30px; margin: 0 0 40px 0;
+}
+.social-link {
+    width: 50px; height: 50px; border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    color: #ffffff; text-decoration: none; transition: all 0.3s ease;
+}
+.social-link:hover {
+    border-color: var(--brand-primary); /* --- CHANGED --- */
+    color: var(--brand-primary); /* --- CHANGED --- */
+    box-shadow: 0 0 20px rgba(var(--brand-primary-rgb), 0.4); /* --- CHANGED --- */
+}
+.footer-text { color: #666666; font-size: 14px; }
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2000; display: flex;
+    justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease-in-out;
+}
+.modal-overlay.show { opacity: 1; pointer-events: auto; }
+.modal-content {
+    padding: 40px; max-width: 550px; width: 90%;
+    position: relative;
+    background: rgba(30, 30, 30, 0.5);
+    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border-radius: 20px; border: 1px solid rgba(var(--brand-primary-rgb), 0.3); /* --- CHANGED --- */
+    transform: translateY(50px);
+    transition: transform 0.4s ease-in-out;
+}
+.modal-overlay.show .modal-content { transform: translateY(0); }
+.modal-close {
+    position: absolute; top: 15px; right: 20px;
+    font-size: 36px; font-weight: bold; color: #fff;
+    cursor: pointer; transition: transform 0.2s ease;
+}
+.modal-close:hover { transform: scale(1.2); color: var(--brand-primary); } /* --- CHANGED --- */
+.modal-content h2 {
+    text-align: center; font-size: 32px; font-weight: 900;
+    margin-top: 0; margin-bottom: 30px; color: var(--brand-primary); /* --- CHANGED --- */
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .nav-links { display: none; }
+    
+    .process-timeline {
+        flex-direction: column;
+        align-items: center;
+        gap: 60px;
+    }
+
+    .process-timeline::before {
+        display: none;
+    }
+
+    /* Stack text/image on mobile for portfolio */
+    .portfolio-slide {
+        grid-template-columns: 1fr;
+        padding: 80px 40px;
+        text-align: center;
+    }
+    .slide-image-wrapper {
+        height: 50vh; /* Adjust height for mobile */
+        grid-row: 1; /* Put image on top */
+    }
+    /* Center description on mobile */
+    .portfolio-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media (max-width: 768px) {
+    .nav-content { max-width: 90%; }
+    .about-content { grid-template-columns: 1fr; gap: 40px; }
+    .about-divider {
+        width: 100%; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--brand-secondary), transparent); /* --- CHANGED --- */
+    }
+    /* .portfolio-grid, */ /* No longer needed */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -- Keyframes for Text Animations -- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal {
+  from {
+    transform: translateX(-101%);
+  }
+  to {
+    transform: translateX(101%);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(var(--brand-primary-rgb), 0.8); /* --- CHANGED --- */
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(var(--brand-primary-rgb), 1); /* --- CHANGED --- */
+  }
+}
+
+/* ================================================= */
+/* INTERACTIVE PARTICLE SECTION                      */
+/* ================================================= */
+
+.interactive-particles-container {
+    position: relative;
+    height: 70vh;
+    width: 100%;
+    background-color: #000;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    z-index: 5; /* --- ADDED THIS LINE --- */
+}
+
+#interactiveCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; 
+}
+
+/* === UPDATED INTERACTIVE BOX === */
+.interactive-box {
+    width: 300px;
+    height: 300px;
+    background-color: var(--brand-primary); /* --- CHANGED --- */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    transition: transform 0.1s ease-out;
+    padding: 20px; /* Creates a border around the image */
+    /* Removed all text/font styles */
+}
+
+.interactive-box-image {
+    max-width: 150%;
+    max-height: 150%;
+    object-fit: contain; /* Ensures the logo fits perfectly */
+}
+.hero {
+    background: radial-gradient(
+        circle at center,
+        rgba(var(--brand-secondary-rgb), 0.15) 0%,
+        rgba(var(--brand-deep-rgb), 0.25) 40%,
+        #000000 90%
+    );
+}
+.services {
+    background: linear-gradient(
+        180deg,
+        rgba(var(--brand-deep-rgb), 0.2) 0%,
+        rgba(var(--brand-primary-rgb), 0.1) 100%
+    );
+}
+.service-card:hover {
+    box-shadow: 0 15px 40px rgba(var(--brand-accent), 0.3);
+    border-color: var(--brand-accent);
+}
+.cta-button:hover {
+    background: linear-gradient(135deg, var(--brand-accent), var(--brand-highlight));
+}
