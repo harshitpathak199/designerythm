@@ -280,6 +280,12 @@ body {
     position: relative;
     z-index: 5; /* --- ADDED THIS LINE --- */
 }
+.service-card-link {
+    text-decoration: none;
+    display: block; /* Ensures the link takes up the card's space */
+    color: #ffffff;
+}
+
 
 .section-title {
     font-size: clamp(36px, 6vw, 72px);
@@ -886,4 +892,63 @@ body {
 }
 .cta-button:hover {
     background: linear-gradient(135deg, var(--brand-accent), var(--brand-highlight));
+}
+/* --- Service Card Click Indication --- */
+
+/* STEP 1: Make the link wrapper a block 
+  so it's easy to style.
+*/
+.service-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 12px; /* Ensure hover effects follow card shape */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* STEP 2: Add the "lift" and "glow" hover effect
+  to the *linked* card only.
+*/
+.service-card-link:hover,
+.service-card-link:focus-visible {
+    transform: translateY(-8px); /* Lifts the card up */
+    box-shadow: 0 15px 30px rgba(230, 0, 122, 0.25); /* Brand color glow */
+}
+
+/* STEP 3: Make the service card itself change
+  to give even more feedback.
+*/
+.service-card-link:hover .service-card,
+.service-card-link:focus-visible .service-card {
+    /* Use your brand's pink for the border on hover */
+    /* Assumes your cards have a dark border by default */
+    border-color: #E6007A; 
+}
+
+/* STEP 4: Style the title to make space for the arrow.
+*/
+.service-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Pushes arrow to the right */
+}
+
+/* STEP 5: Style the arrow itself.
+  It's hidden by default (opacity: 0).
+*/
+.service-arrow {
+    font-size: 1.5em; /* Make it noticeable */
+    color: #E6007A;   /* Brand color */
+    opacity: 0;
+    transform: translateX(-10px); /* Start it "off-screen" */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* STEP 6: On hover, fade the arrow in
+  and slide it into place.
+*/
+.service-card-link:hover .service-arrow,
+.service-card-link:focus-visible .service-arrow {
+    opacity: 1;
+    transform: translateX(0);
 }
