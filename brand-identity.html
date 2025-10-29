@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Identity - Designerythm</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <style>
+    /*------------------------------------
+     1. ROOT VARIABLES & GLOBAL STYLES
+    ------------------------------------*/
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1E1E1E;
+            --text-primary: #F0F0F0;
+            --text-secondary: #a0a0a0;
+            
+            --accent-yellow: #FFC107;
+            --accent-orange: #FF5722;
+            --accent-magenta: #E91E63;
+            --accent-purple: #9C27B0;
+            --accent-blue: #03A9F4;
+            --accent-teal: #00BCD4;
+
+            --gradient-primary: linear-gradient(90deg, var(--accent-purple), var(--accent-magenta), var(--accent-orange));
+            --gradient-secondary: linear-gradient(90deg, var(--accent-blue), var(--accent-teal));
+            --gradient-cta: linear-gradient(90deg, var(--accent-orange), var(--accent-purple));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            cursor: default;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 60ch;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        section {
+            padding: 100px 8%;
+            position: relative;
+            overflow: hidden;
+            /* z-index is set on 'section' tag */
+            /* Default z-index for content sections, above canvas */
+            z-index: 10; 
+        }
+
+    /*------------------------------------
+     2. THREE.JS CANVAS (From Original)
+    ------------------------------------*/
+        #threejs-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Set z-index to 1 to be in the back, but above body background */
+            z-index: 1; 
+            opacity: 0.3;
+        }
+
+    /*------------------------------------
+     3. UTILITY & ANIMATION CLASSES
+    ------------------------------------*/
+        .section-heading {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient-glow 10s ease-in-out infinite;
+            background-size: 200% 200%;
+            position: relative;
+            /* Ensures heading is above any local section backgrounds */
+            z-index: 2; 
+        }
+
+        @keyframes gradient-glow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+    /*------------------------------------
+     4. BACK TO HOME BUTTON
+    ------------------------------------*/
+        .back-home {
+            position: fixed; /* Changed to fixed for consistency */
+            top: 30px;
+            left: 5%;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background-color: #2a2a2a;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            /* Ensure it's always on top */
+            z-index: 100; 
+            transition: all 0.3s ease;
+            opacity: 0.9;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .back-home:hover {
+            opacity: 1;
+            background-color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            color: var(--text-primary);
+            text-shadow: none;
+        }
+
+    /*------------------------------------
+     5. HERO SECTION (From New Code)
+    ------------------------------------*/
+        .hero-section {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            align-items: center;
+            gap: 2rem;
+            padding-top: 120px;
+            /* z-index is set on 'section' tag */
+        }
+
+        .hero-content h1 {
+            font-size: clamp(8rem, 8vw, 6.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient-glow 10s ease-in-out infinite;
+            background-size: 200% 200%;
+        }
+        
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 50ch;
+        }
+
+        .hero-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* This is a foreground animation, let it be behind content but on top of canvas if needed */
+            z-index: -1; 
+            opacity: 0.3;
+        }
+
+        .hero-animation svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        .hero-animation .pulse-orb {
+            animation: pulse-orb 8s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        .hero-animation .draw-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw-line 12s ease-in-out infinite;
+        }
+        
+        .hero-animation .spin-group {
+            animation: spin-group 30s linear infinite;
+            transform-origin: center;
+        }
+
+        @keyframes pulse-orb {
+            0%, 100% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        @keyframes draw-line {
+            0% { stroke-dashoffset: 1000; opacity: 0; }
+            30% { stroke-dashoffset: 0; opacity: 1; }
+            70% { stroke-dashoffset: -1000; opacity: 1; }
+            100% { stroke-dashoffset: -1000; opacity: 0; }
+        }
+
+        @keyframes spin-group {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+    /*------------------------------------
+     5.5. HERO IMAGE
+    ------------------------------------*/
+        .hero-image-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+
+            border-radius: 20px; /* Adjust 20px to your liking */
+    overflow: hidden;    /* This clips the video to the curve */
+        }
+
+        .hero-brand-art {
+            width: 100%;
+            max-width: 1500px;
+            height: auto;
+            filter: drop-shadow(0 0 5px rgba(255, 62, 62, 0.6));
+            transform: translateZ(20px);
+            border-radius: 20px;
+        }
+
+    /*------------------------------------
+     6. STATS SECTION (From Original)
+    ------------------------------------*/
+        /* This is the wrapper div from your original code */
+        .stats-wrapper {
+             padding: 0 5%; 
+             max-width: 1400px; 
+             margin: -80px auto 60px; 
+             position: relative; 
+             /* High z-index to ensure it sits on top of the hero and any parallax effects */
+             z-index: 20; 
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 0;
+            background: var(--bg-secondary);
+            padding: 35px 0;
+            border-radius: 25px;
+            max-width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .stat-box {
+            flex: 1;
+            text-align: center;
+            padding: 20px 15px;
+            border-right: 3px solid var(--accent-yellow);
+            position: relative;
+        }
+
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 193, 7, 0.1));
+            transition: width 0.5s ease;
+        }
+
+        .stat-box:hover::before {
+            width: 100%;
+        }
+
+        .stat-box:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+            line-height: 1;
+            animation: gradient-glow 8s ease-in-out infinite;
+            background-size: 200% 200%;
+        }
+
+        .stat-label {
+            font-size: clamp(0.75rem, 1.5vw, 1rem);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+    /*------------------------------------
+     7. TRANSFORMATION SECTION (From New)
+    ------------------------------------*/
+        .transformation-section {
+            background-color: var(--bg-primary); /* Ensure it has a background to cover particles */
+            position: relative; /* Needed for z-index context */
+            z-index: 10; /* Above the canvas */
+        }
+        
+        .comparison-slider {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            margin: 5rem auto 0;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                inset 10px 0 15px -5px rgba(0, 0, 0, 0.5),
+                inset -10px 0 15px -5px rgba(0, 0, 0, 0.5);
+            cursor: col-resize;
+            user-select: none;
+            transition: box-shadow 0.3s ease-in-out;
+            transform-style: preserve-3d;
+            /* Added z-index to be above section video if any, or just ensure layering */
+            z-index: 3; 
+        }
+
+        .comparison-slider:hover {
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.5),
+                inset 15px 0 20px -5px rgba(0, 0, 0, 0.6),
+                inset -15px 0 20px -5px rgba(0, 0, 0, 0.6);
+        }
+        
+        .slider-label {
+            position: absolute;
+            top: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 4px;
+            z-index: 3;
+            pointer-events: none;
+        }
+        .slider-label.before {
+            left: 15px;
+        }
+        .slider-label.after {
+            right: 15px;
+        }
+
+        .comparison-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translateZ(10px);
+        }
+
+        .after-image {
+            clip-path: inset(0 0 0 50%);
+            z-index: 2;
+        }
+
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 6px;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 4;
+            transform: translateX(-50%) translateZ(20px);
+            pointer-events: none;
+            box-shadow: 0 0 15px var(--accent-yellow);
+        }
+
+        .slider-handle::after {
+            content: '||';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            width: 40px;
+            height: 40px;
+            background: var(--accent-yellow);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+    /*------------------------------------
+     8. BRAND VIBE SECTION (From New)
+    ------------------------------------*/
+        .vibe-section {
+            position: relative; /* Establish stacking context for its children */
+            background-color: var(--bg-primary); /* Fallback */
+            z-index: 10; /* Above the canvas */
+            overflow: hidden; /* Ensure content doesn't overflow */
+            text-align: center;
+        }
+
+        /* Change color of Vibe Section heading */
+.vibe-section .section-heading {
+    /* background: none; Remove the gradient */
+    -webkit-background-clip: initial; /* Reset clipping */
+    background-clip: initial; /* Reset clipping */
+    color: white; /* Set desired text color (e.g., white) */
+    animation: none; /* Remove gradient animation */
+
+    background-color: linear-gradient(90deg, var(--accent-orange), var(--accent-purple)); /* Or any color you like */
+    padding: 0.5em 1em;          /* Adjust padding (top/bottom, left/right) */
+    border-radius: 30px;         /* Optional: for rounded corners */
+    display: inline-block;       /* Makes the box fit the text width */
+    max-width: 90%;
+}
+
+        /* New dynamic background for vibe section */
+        .vibe-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(20px) brightness(0.5); /* Strong blur and darken */
+            opacity: 0.5; /* Control overall visibility */
+            transition: background-image 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            z-index: 2; /* Below swiper, above threejs canvas */
+            transform: scale(1.1); /* To hide blur edges */
+        }
+        
+        .vibe-swiper {
+            width: 100%;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            position: relative;
+            /* Higher z-index than the video background */
+            z-index: 3; 
+            perspective: 1200px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 350px;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.4s ease-out, opacity 0.4s ease-out, filter 0.4s ease-out;
+            opacity: 0.5;
+            filter: blur(2px);
+        }
+
+        .swiper-slide-active {
+            opacity: 1;
+            filter: blur(0px);
+        }
+
+        /* --- THIS IS THE UPDATED CSS RULE --- */
+        .vibe-section .vibe-card {
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            border: 2px solid #333;
+            transition: none;
+            transform-style: flat;
+            width: 100%;
+            height: 100%;
+            min-height: unset;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* <-- CHANGED to align content to the top */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            overflow: hidden; /* <-- ADDED to clip the image to the card's rounded corners */    
+        }
+
+        /* --- THESE ARE THE NEW CSS RULES --- */
+        .vibe-card-image {
+            width: 100%;
+            height: 200px; /* You can adjust this height */
+            object-fit: cover;
+        }
+
+        .vibe-card-content {
+            padding: 1.5rem; /* This restores the padding for the text */
+        }
+        
+        .vibe-section .vibe-card h3 { font-size: 1.4rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .vibe-section .vibe-card p { font-size: 0.9rem; }
+
+        .vibe-card:nth-child(1) h3::before { content: '🔷'; }
+        .vibe-card:nth-child(2) h3::before { content: '✨'; }
+        .vibe-card:nth-child(3) h3::before { content: '🔥'; }
+        .vibe-card:nth-child(4) h3::before { content: '🌿'; }
+        
+        :root {
+            --swiper-navigation-color: #ffffff;
+            --swiper-navigation-size: 30px;
+        }
+        .vibe-swiper-button-prev,
+        .vibe-swiper-button-next {
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+        }
+        .vibe-swiper-button-prev { left: 10px; }
+        .vibe-swiper-button-next { right: 10px; }
+
+    /*------------------------------------
+     9. OUR WORK SECTION (From New)
+    ------------------------------------*/
+        .work-section {
+            /* THIS IS A KEY CHANGE FOR THE WORK SECTION BACKGROUND */
+            background-color: var(--bg-primary); /* Ensure it has a background to cover particles */
+            position: relative; /* Needed for z-index context */
+            z-index: 10; /* Above the canvas */
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            /* THIS IS A KEY CHANGE FOR THE WORK GRID CONTENT */
+            position: relative; /* Establish a new stacking context */
+            z-index: 11; /* Ensure content is above the section's background (z-index: 10) */
+        }
+
+        .case-study {
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+            /* Ensure cards are above grid background if any */
+            position: relative; 
+            z-index: 12; 
+        }
+        
+        .case-study:hover {
+            border-color: var(--accent-magenta);
+            box-shadow: 0 0 25px rgba(233, 30, 99, 0.3);
+        }
+
+        .case-study-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background-color: #333;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        
+        .case-study:hover .case-study-image {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+        
+        .case-study-content {
+            padding: 1.5rem;
+        }
+
+        .case-study-content h3 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-study-content .tag {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .color-palette {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .palette-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+    /*------------------------------------
+     10. CTA SECTION (From New)
+    ------------------------------------*/
+        .cta-section {
+            text-align: center;
+            background: var(--gradient-cta);
+            padding: 80px 5%;
+            position: relative; /* Needed for z-index context */
+            z-index: 10; /* Above the canvas */
+        }
+
+        .cta-section .section-heading {
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            color: var(--text-primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation: none;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.1rem;
+            margin: -1rem auto 2.5rem;
+            max-width: 65ch;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 0.9rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background-color: #f0f0f0;
+            background-image: none;
+            animation: none;
+        }
+
+    /*------------------------------------
+     11. RESPONSIVENESS (Merged)
+    ------------------------------------*/
+        @media (max-width: 1024px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+                min-height: 80vh;
+                padding-top: 150px;
+            }
+
+            .hero-image-container {
+                margin-top: 2rem;
+                grid-row: 2;
+            }
+
+            .hero-content p {
+                margin: 1.5rem auto 0;
+            }
+
+            .hero-animation {
+                opacity: 0.15;
+            }
+
+            .work-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 5%;
+            }
+
+            .back-home {
+                left: 15px;
+                top: 20px;
+                padding: 0.6rem 1.2rem;
+            }
+
+            .hero-section {
+                padding-top: 120px;
+            }
+
+            .comparison-slider {
+                width: 100%;
+                margin-top: 3rem;
+            }
+
+            .slider-label {
+                top: 10px;
+                font-size: 0.9rem;
+            }
+            .slider-label.before { left: 10px; }
+            .slider-label.after { right: 10px; }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                padding: 60px 5%;
+            }
+            .cta-section .section-heading {
+                font-size: 1.8rem;
+            }
+            .cta-section p {
+                font-size: 1rem;
+            }
+            
+            /* Swiper responsiveness */
+            .swiper-slide { width: 280px; height: 380px; }
+            .vibe-swiper-button-prev, .vibe-swiper-button-next { display: none; }
+            
+            /* --- THIS IS THE UPDATED RULE --- */
+            .vibe-section .vibe-card { 
+                padding: 1.5rem 1rem; /* This is replaced by the content wrapper */
+            }
+            .vibe-card-content {
+                padding: 1.5rem 1rem; /* Apply padding here instead */
+            }
+            .vibe-card-image {
+                height: 150px; /* Adjust image height for mobile */
+            }
+            
+            .vibe-section .vibe-card h3 { font-size: 1.2rem; }
+            .vibe-section .vibe-card p { font-size: 0.85rem; }
+        }
+
+        /* Stats responsiveness */
+        @media (max-width: 640px) {
+            .stats-container {
+                flex-direction: column;
+                padding: 20px 0;
+                gap: 10px;
+            }
+
+            .stat-box {
+                border-right: none;
+                border-bottom: 3px solid var(--accent-yellow);
+                padding: 15px;
+            }
+
+            .stat-box:last-child {
+                border-bottom: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="threejs-canvas"></canvas>
+
+    <a href="index.html" class="back-home">← Back to Home</a>
+
+    <section class="hero-section">
+        <div class="hero-content fade-in-up">
+            <h1>Brand Identity</h1>
+            <p>We craft distinctive brand identities that capture your essence and resonate with your audience. From logo design to complete brand systems.</p>
+        </div>
+        
+       <div class="hero-image-container fade-in-up">
+    <video class="hero-brand-art" 
+           src="video/brand-art.mp4" 
+           autoplay 
+           loop 
+           muted 
+           playsinline>
+    </video>
+</div>
+
+        <div class="hero-animation">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:var(--accent-purple); stop-opacity:1" /><stop offset="100%" style="stop-color:var(--accent-blue); stop-opacity:1" /></linearGradient><linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:var(--accent-magenta); stop-opacity:1" /><stop offset="100%" style="stop-color:var(--accent-orange); stop-opacity:1" /></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g class="spin-group" style="animation-duration: 40s;"><path class="draw-line" fill="none" stroke="url(#grad1)" stroke-width="2" d="M100 100 Q 400 50, 700 300 T 100 500" style="animation-delay: -2s;"/><path class="draw-line" fill="none" stroke="url(#grad2)" stroke-width="1.5" d="M700 100 Q 400 550, 100 300 T 700 500" style="animation-delay: -4s;"/></g><g class="spin-group" style="animation-duration: 25s; animation-direction: reverse;"><circle class="pulse-orb" cx="400" cy="300" r="50" fill="none" stroke="var(--accent-yellow)" stroke-width="3" filter="url(#glow)" style="animation-delay: -1s;"/><circle class="pulse-orb" cx="200" cy="200" r="10" fill="var(--accent-blue)" style="animation-delay: -3s;"/><circle class="pulse-orb" cx="600" cy="400" r="15" fill="var(--accent-magenta)" style="animation-delay: -5s;"/><circle cx="150" cy="450" r="5" fill="var(--accent-teal)" class="pulse-orb" style="animation-delay: -2s;"/><circle cx="650" cy="150" r="8" fill="var(--accent-orange)" class="pulse-orb" style="animation-delay: -4s;"/></g></svg>
+        </div>
+    </section>
+
+    <div class="stats-wrapper">
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Happy Clients</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Projects Done</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Awards Won</div>
+            </div>
+        </div>
+    </div>
+
+    <section class="transformation-section">
+        <h2 class="section-heading fade-in-up">See the Transformation</h2>
+        
+        <div class="comparison-slider fade-in-up">
+            <span class="slider-label before">Before</span>
+            <span class="slider-label after">After</span>
+            
+            <img src="images/before-art.png" alt="Before design" class="comparison-image before-image">
+            <img src="images/after-art.png" alt="After design by Designerythm" class="comparison-image after-image">
+            <div class="slider-handle"></div>
+        </div>
+    </section>
+
+    <section class="vibe-section">
+        <div class="vibe-bg-image"></div> 
+
+        <h2 class="section-heading fade-in-up">What’s Your Brand Vibe?</h2>
+        
+        <div class="swiper vibe-swiper fade-in-up">
+            <div class="swiper-wrapper">
+                
+                <div class="swiper-slide">
+                    <div class="vibe-card">
+                        <img src="images/modern.png" alt="Modern & Minimal" class="vibe-card-image">
+                        <div class="vibe-card-content">
+                            <h3>🔷 Modern & Minimal</h3>
+                            <p>Clean lines, crisp typography...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="vibe-card">
+                        <img src="images/elegance.png" alt="Elegant & Classic" class="vibe-card-image"> <div class="vibe-card-content">
+                            <h3>✨ Elegant & Classic</h3>
+                            <p>Timeless aesthetics...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="vibe-card">
+                        <img src="images/bold.png" alt="Bold & Playful" class="vibe-card-image">
+                        <div class="vibe-card-content">
+                            <h3>🔥 Bold & Playful</h3>
+                            <p>Vibrant colors...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="vibe-card">
+                        <img src="images/earth.png" alt="Earthy & Natural" class="vibe-card-image">
+                        <div class="vibe-card-content">
+                            <h3>🌿 Earthy & Natural</h3>
+                            <p>Organic textures...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="swiper-button-prev vibe-swiper-button-prev"></div>
+            <div class="swiper-button-next vibe-swiper-button-next"></div>
+        </div>
+    </section>
+
+    <section class="work-section">
+        <h2 class="section-heading fade-in-up">Our Brand Systems</h2>
+        
+        <div class="work-grid">
+            <div class="case-study fade-in-up" data-tilt>
+                <img src="images/card1.png" alt="HERBALLUX Brand" class="case-study-image">
+                <div class="case-study-content">
+                    <h3>HERBALLUX</h3>
+                    <span class="tag">Wellness Brand</span>
+                    <div class="color-palette">
+                        <div class="palette-dot" style="background-color: #6d4c41;"></div>
+                        <div class="palette-dot" style="background-color: #81c784;"></div>
+                        <div class="palette-dot" style="background-color: #f06292;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="case-study fade-in-up" data-tilt>
+                <img src="images/card2.png" alt="TECHFLOW Brand" class="case-study-image">
+                <div class="case-study-content">
+                    <h3>TECHFLOW</h3>
+                    <span class="tag">Tech Startup</span>
+                    <div class="color-palette">
+                        <div class="palette-dot" style="background-color: #03A9F4;"></div>
+                        <div class="palette-dot" style="background-color: #FF9800;"></div>
+                        <div class="palette-dot" style="background-color: #00BCD4;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="case-study fade-in-up" data-tilt>
+                <img src="images/card3.png" alt="LUXEMODA Brand" class="case-study-image">
+                <div class="case-study-content">
+                    <h3>LUXEMODA</h3>
+                    <span class="tag">Fashion Label</span>
+                    <div class="color-palette">
+                        <div class="palette-dot" style="background-color: #FFC107;"></div>
+                        <div class="palette-dot" style="background-color: #9C27B0;"></div>
+                        <div class="palette-dot" style="background-color: #E91E63;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <h2 class="section-heading fade-in-up">Ready to Find Your Rhythm?</h2>
+        <p class="fade-in-up">Let's connect and compose something extraordinary. Your vision, our expertise—a perfect harmony.</p>
+        <a href="#" class="cta-button fade-in-up">Start Your Project</a>
+    </section>
+
+    
+    <script>
+    // --- MERGED SCRIPT ---
+
+    // 1. Original Three.js Background Script
+    gsap.registerPlugin(ScrollTrigger); // Register plugin once
+    const canvas = document.getElementById('threejs-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    camera.position.z = 30;
+
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 150;
+    const posArray = new Float32Array(particlesCount * 3);
+    const colors = [
+        new THREE.Color(0xFFC107), new THREE.Color(0xFF5722),
+        new THREE.Color(0x9C27B0), new THREE.Color(0x03A9F4),
+        new THREE.Color(0x00BCD4),
+    ];
+
+    for(let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 100;
+    }
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+    const particleSystems = [];
+    colors.forEach(color => {
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.8, color: color, transparent: true,
+            opacity: 0.8, blending: THREE.AdditiveBlending
+        });
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+        particleSystems.push(particlesMesh);
+    });
+
+    const geometries = [
+        new THREE.TorusGeometry(3, 0.5, 16, 100),
+        new THREE.OctahedronGeometry(2),
+        new THREE.TetrahedronGeometry(2.5),
+    ];
+    const shapes = [];
+    geometries.forEach((geo, index) => {
+        const mat = new THREE.MeshBasicMaterial({
+            color: colors[index], wireframe: true,
+            transparent: true, opacity: 0.3
+        });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(
+            (Math.random() - 0.5) * 40,
+            (Math.random() - 0.5) * 40,
+            (Math.random() - 0.5) * 20
+        );
+        scene.add(mesh);
+        shapes.push(mesh);
+    });
+
+    let mouseX = 10;
+    let mouseY = 10;
+    document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        particleSystems.forEach((system, index) => {
+            system.rotation.y += 0.001 * (index + 1);
+            system.rotation.x += 0.0005 * (index + 1);
+        });
+        shapes.forEach((shape, index) => {
+            shape.rotation.x += 0.005;
+            shape.rotation.y += 0.003;
+        });
+        camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
+        camera.position.y += (mouseY * 2 - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+
+    // 2. New Page Scripts (GSAP, Swiper, Tilt, etc.)
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // Hero Section Animations
+        gsap.to('.hero-content.fade-in-up', { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: 'power3.out' });
+        gsap.to('.hero-image-container.fade-in-up', { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: 'power3.out' });
+        gsap.from('.hero-animation', { opacity: 0, scale: 0.9, duration: 1.5, delay: 0.2, ease: 'power2.out' });
+
+        // ScrollTrigger Animations for other sections
+        const animatedSections = [
+            { selector: '.transformation-section', stagger: 0 },
+            { selector: '.vibe-section', stagger: 0.15 },
+            { selector: '.work-section', stagger: 0.15 },
+            { selector: '.cta-section', stagger: 0.1 }
+        ];
+
+        animatedSections.forEach(sectionInfo => {
+            const section = document.querySelector(sectionInfo.selector);
+            if (!section) return;
+            let elements = section.querySelectorAll('.fade-in-up');
+            if (sectionInfo.selector === '.transformation-section') {
+                elements = Array.from(elements).filter(el => !el.classList.contains('comparison-slider'));
+            }
+            if (elements.length > 0) {
+                gsap.to(elements, {
+                    opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: sectionInfo.stagger,
+                    scrollTrigger: { trigger: section, start: 'top 80%', toggleActions: 'play none none none' }
+                });
+            }
+        });
+
+        // Specific animation for the comparison slider
+        const sliderElement = document.querySelector('.comparison-slider');
+        if (sliderElement) {
+            gsap.to(sliderElement, {
+                opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.transformation-section',
+                    start: 'top 60%',
+                    end: 'bottom 40%',
+                    toggleActions: 'play reverse play reverse',
+                }
+            });
+        }
+        
+        // Before/After Slider Interaction
+        const slider = document.querySelector('.comparison-slider');
+        if (slider) {
+            const handle = slider.querySelector('.slider-handle');
+            const afterImage = slider.querySelector('.after-image');
+            let isDragging = false;
+            const startDrag = (e) => { isDragging = true; e.preventDefault(); };
+            const stopDrag = () => { isDragging = false; };
+            const onDrag = (e) => {
+                if (!isDragging) return;
+                let clientX = e.pageX || (e.touches ? e.touches[0].pageX : 0);
+                let rect = slider.getBoundingClientRect();
+                let x = clientX - rect.left - window.scrollX;
+                x = Math.max(0, Math.min(x, slider.offsetWidth));
+                let percent = (x / slider.offsetWidth) * 100;
+                handle.style.left = percent + '%';
+                afterImage.style.clipPath = `inset(0 0 0 ${percent}%)`;
+            };
+            slider.addEventListener('mousedown', startDrag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('mousemove', onDrag);
+            slider.addEventListener('touchstart', startDrag, { passive: false });
+            document.addEventListener('touchend', stopDrag);
+            document.addEventListener('touchmove', onDrag, { passive: true });
+        }
+
+        // Delayed Tilt Initialization
+        setTimeout(() => {
+            VanillaTilt.init(document.querySelectorAll('.case-study, .comparison-slider'), {
+                max: 20, speed: 400,
+                glare: false, perspective: 1000
+            });
+        }, 300);
+        
+        // Swiper Initialization for Vibe Section
+        const vibeSwiper = new Swiper('.vibe-swiper', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            loop: false, // Changed to false to prevent issues with dynamic background updates
+            coverflowEffect: {
+                rotate: 0,
+                stretch: -60,
+                depth: 250,
+                modifier: 1,
+                scale: 0.8,
+                slideShadows: true,
+            },
+            navigation: {
+                nextEl: '.vibe-swiper-button-next',
+                prevEl: '.vibe-swiper-button-prev',
+            },
+            keyboard: {
+                enabled: true,
+            },
+            watchSlidesProgress: true,
+            initialSlide: 0, // Start with the first slide active
+        });
+
+        // Dynamic background for Vibe Section based on active slide
+        // Ensure these exist
+const vibeBgImage = document.querySelector('.vibe-bg-image');
+if (!vibeBgImage) {
+  console.error('No .vibe-bg-image element found in DOM.');
+}
+
+// Helper: read image URL from many possible places
+function extractImageUrlFromSlide(slideEl) {
+  if (!slideEl) return null;
+
+  // common selectors inside slide
+  const img = slideEl.querySelector('img.vibe-card-image') || slideEl.querySelector('img');
+  if (img) {
+    // try real src first
+    if (img.src && !img.src.includes('data:') && img.complete !== false) return img.src;
+    // lazy-loaded attribute patterns
+    const attrCandidates = ['data-src', 'data-lazy', 'data-srcset', 'data-background', 'data-image'];
+    for (const attr of attrCandidates) {
+      const url = img.getAttribute(attr);
+      if (url) return url;
+    }
+    // srcset fallback -> take the last entry
+    const srcset = img.getAttribute('srcset');
+    if (srcset) {
+      const last = srcset.split(',').pop().trim().split(' ')[0];
+      if (last) return last;
+    }
+  }
+
+  // maybe slide itself has data-image attribute
+  const slideData = slideEl.getAttribute('data-image') || slideEl.dataset.image;
+  if (slideData) return slideData;
+
+  // picture > source fallback
+  const source = slideEl.querySelector('picture source');
+  if (source) {
+    const s = source.getAttribute('srcset') || source.getAttribute('data-srcset');
+    if (s) {
+      const last = s.split(',').pop().trim().split(' ')[0];
+      if (last) return last;
+    }
+  }
+
+  return null;
+}
+
+// Update function — defensive and logs for debugging
+function updateVibeBackground() {
+  if (!vibeBgImage) return;
+
+  // prefer DOM-active slide (handles clones)
+  let activeSlide = document.querySelector('.swiper-slide-active');
+
+  // If using Swiper instance and realIndex is supported, try to get original slide element
+  if (typeof vibeSwiper !== 'undefined' && vibeSwiper && typeof vibeSwiper.slides !== 'undefined') {
+    // vibeSwiper.realIndex is the index of the original slide (if loop: true)
+    try {
+      const candidate = vibeSwiper.slides[vibeSwiper.activeIndex] || document.querySelector('.swiper-slide-active');
+      if (candidate) activeSlide = candidate;
+    } catch (e) {
+      // ignore and keep DOM active slide
+    }
+  }
+
+  if (!activeSlide) {
+    console.warn('No active slide found.');
+    return;
+  }
+
+  const imageUrl = extractImageUrlFromSlide(activeSlide);
+
+  if (!imageUrl) {
+    console.warn('No image URL found on active slide. Active slide HTML:', activeSlide.outerHTML.slice(0, 300));
+    return;
+  }
+
+  // Avoid re-setting same URL repeatedly
+  const current = vibeBgImage.style.backgroundImage;
+  const newBg = `url("${imageUrl}")`;
+  if (current === newBg) {
+    // nothing to do
+    return;
+  }
+
+  // apply background (and preserve smooth transition)
+  vibeBgImage.style.backgroundImage = newBg;
+  vibeBgImage.style.backgroundSize = 'cover';
+  vibeBgImage.style.backgroundPosition = 'center center';
+  vibeBgImage.style.backgroundRepeat = 'no-repeat';
+
+  // small GSAP fade/transform for nicer effect
+  if (typeof gsap !== 'undefined') {
+    gsap.killTweensOf(vibeBgImage);
+    gsap.fromTo(
+      vibeBgImage,
+      { opacity: 0.15, scale: 1.02, filter: 'blur(8px)' },
+      { opacity: 0.5, scale: 1, filter: 'blur(7px)', duration: 0.55, ease: 'power2.out' }
+    );
+  }
+}
+
+// ---- Event hookups ----
+// When Swiper initializes & whenever slide changes
+if (typeof vibeSwiper !== 'undefined' && vibeSwiper) {
+  // init might have already fired; ensure background set at least once
+  try { vibeSwiper.on('init', updateVibeBackground); } catch (e) {}
+  try { vibeSwiper.on('slideChange', updateVibeBackground); } catch (e) {}
+  try { vibeSwiper.on('slideChangeTransitionEnd', updateVibeBackground); } catch (e) {}
+  // some setups use lazy loading event
+  try { vibeSwiper.on('lazyImageReady', updateVibeBackground); } catch (e) {}
+}
+
+// fallback: window load + mutation observer (catches if images injected later)
+window.addEventListener('load', () => setTimeout(updateVibeBackground, 50));
+
+/* Optional: observe when .swiper-slide-active changes classes (useful if Swiper manipulates clones dynamically) */
+const wrapper = document.querySelector('.swiper-wrapper');
+if (wrapper) {
+  const mo = new MutationObserver(() => updateVibeBackground());
+  mo.observe(wrapper, { attributes: true, subtree: true, attributeFilter: ['class'] });
+}
+
+        // 3. Original Stats Bar Animations
+        gsap.from('.stat-box', {
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.stats-container',
+                start: 'top 90%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        gsap.utils.toArray('.stat-number').forEach(stat => {
+            const target = parseInt(stat.textContent);
+            const statData = { val: 0 };
+            gsap.to(statData, {
+                val: target,
+                duration: 2.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: stat,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                },
+                onUpdate: () => {
+                    stat.textContent = Math.floor(statData.val) + '+';
+                }
+            });
+        });
+
+    });
+    </script>
+
+</body>
+</html>
